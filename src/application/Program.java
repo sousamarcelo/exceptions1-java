@@ -1,5 +1,5 @@
 /*
- * ATENÇÃO: primera solução, muito ruim
+ * ATENÇÃO: segunda solução, ruim, porém melhor que a anterior
  * 
  * Um dos grande problema dessa solução é a delegação, a logica da reserva deveria está na Reserva e não no programa principal
  */
@@ -40,23 +40,13 @@ public class Program {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			checkOut = sdfIn.parse(sc.next());
 			
-			Date now = sdfIn.parse("06/06/2018"); //chumbando data para ficar igual ao do exercicio, mas no exercicio ele utiliza new Date() pra pegar a data atual.
-			
-			if (checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("Error in reservation: Reservation dates for update must be future dates.");
-			} else if (!checkOut.after(checkIn)) {
-				System.out.println("Error in reservation: check-out date must be after check-in date");
+			String error = reservation.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Error in reservation: " + error);				
 			} else {
-				reservation.updateDates(checkIn, checkOut);
-				System.out.println("Reservation: " + reservation);
-			}			
-			
-		}
-		
-		
-		
-		
+			System.out.println("Reservation: " + reservation);
+			}				
+		}			
 		sc.close();
 	}
-
 }
